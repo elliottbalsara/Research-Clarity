@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ResearchClarity
 
 An AI-powered platform that digests research papers into concise, actionable summaries and explains complex statistics for faster learning. Built with Python, JavaScript, CSS, and HTML, it integrates the Azure OpenAI API with asynchronous processing for a smooth, real-time experience.
@@ -43,3 +44,7 @@ python main.py
 3. Get a summarized version with simplified statistics and actionable insights.
 
 
+=======
+# Research-Clarity
+An AI-powered platform that digests research papers into concise, actionable summaries and explains complex statistics, helping users learn faster and understand more. Built with Python, JavaScript, CSS, and HTML, it integrates the Azure OpenAI API with asynchronous processing for a smooth, real-time experience.
+>>>>>>> be8f8f3d826ab6d18d7fa914190b8e87149f8728
