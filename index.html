@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Clarity - Make Research Accessible</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #2d3748;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 4rem;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .trust-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .trust-item {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 1rem 1.5rem;
+            border-radius: 15px;
+            color: white;
+            font-weight: 500;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .main-card {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            margin-bottom: 3rem;
+        }
+
+        .input-section {
+            margin-bottom: 2rem;
+        }
+
+        .input-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #4a5568;
+        }
+
+        .paste-area {
+            width: 100%;
+            min-height: 200px;
+            border: 2px dashed #cbd5e0;
+            border-radius: 15px;
+            padding: 2rem;
+            font-size: 1rem;
+            resize: vertical;
+            transition: all 0.3s ease;
+            background: #f7fafc;
+        }
+
+        .paste-area:focus {
+            border-color: #667eea;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .paste-area::placeholder {
+            color: #a0aec0;
+        }
+
+        .analyze-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 1rem 3rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            width: 100%;
+            max-width: 300px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .analyze-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .education-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .edu-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border-left: 4px solid #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .edu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+        }
+
+        .edu-card h3 {
+            color: #2d3748;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .edu-card p {
+            color: #4a5568;
+            margin-bottom: 1rem;
+        }
+
+        .warning-example {
+            background: #fff5f5;
+            border-left: 4px solid #e53e3e;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .warning-example strong {
+            color: #e53e3e;
+        }
+
+        .good-example {
+            background: #f0fff4;
+            border-left: 4px solid #38a169;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .good-example strong {
+            color: #38a169;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature {
+            text-align: center;
+            color: white;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+        }
+
+        .sample-output {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            display: none;
+        }
+
+        .sample-output.show {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .metric:last-child {
+            border-bottom: none;
+        }
+
+        .metric-label {
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .metric-value {
+            font-weight: 500;
+        }
+
+        .confidence-high { color: #28a745; }
+        .confidence-medium { color: #ffc107; }
+        .confidence-low { color: #dc3545; }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .trust-indicators {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .main-card {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1>Study Clarity</h1>
+            <p>Transform complex research into clear, actionable insights. Understand what studies really mean—beyond the headlines.</p>
+            
+            <div class="trust-indicators">
+                <div class="trust-item">📊 Statistical Accuracy</div>
+                <div class="trust-item">🎯 Bias Detection</div>
+                <div class="trust-item">📚 Educational Focus</div>
+                <div class="trust-item">✅ Evidence-Based</div>
+            </div>
+        </div>
+
+        <div class="main-card">
+            <div class="input-section">
+                <h2>Paste Your Research Study</h2>
+                <textarea 
+                    class="paste-area" 
+                    id="studyInput"
+                    placeholder="Paste the abstract, methodology, results, or full text of any research study here. We'll break down the statistics, identify potential issues, and explain what it really means in plain English...
+
+Example: 'A randomized controlled trial of 150 participants showed that intervention X reduced symptoms by 23% (p=0.04) compared to control group...'"
+                ></textarea>
+                <button class="analyze-btn" onclick="analyzeStudy()">
+                    Analyze Study 🔍
+                </button>
+            </div>
+
+            <div class="sample-output" id="sampleOutput">
+                <!-- Results will appear here after analysis -->
+            </div>
+        </div>
+
+        <div class="education-section">
+            <div class="edu-card">
+                <h3>🎲 Understanding P-Values</h3>
+                <p>P-values tell us the probability that observed results occurred by chance. But they're widely misunderstood.</p>
+                
+                <div class="warning-example">
+                    <strong>Common Myth:</strong> "p=0.05 means there's a 95% chance the treatment works"
+                </div>
+                
+                <div class="good-example">
+                    <strong>Reality:</strong> "p=0.05 means if the treatment had no effect, you'd see results this extreme only 5% of the time"
+                </div>
+            </div>
+
+            <div class="edu-card">
+                <h3>📏 Sample Size Matters</h3>
+                <p>Small studies can produce misleading results, even with "significant" p-values.</p>
+                
+                <div class="warning-example">
+                    <strong>Red Flag:</strong> "Miracle cure tested on 12 people shows 90% success rate!"
+                </div>
+                
+                <div class="good-example">
+                    <strong>Look For:</strong> Large, diverse samples with pre-registered study protocols
+                </div>
+            </div>
+
+            <div class="edu-card">
+                <h3>🎯 Cherry-Picking Detection</h3>
+                <p>Studies can be manipulated by selective reporting of favorable outcomes.</p>
+                
+                <div class="warning-example">
+                    <strong>Watch Out:</strong> Studies that test 20 outcomes but only report the 2 significant ones
+                </div>
+                
+                <div class="good-example">
+                    <strong>Quality Sign:</strong> Pre-registered primary endpoints and transparent reporting
+                </div>
+            </div>
+
+            <div class="edu-card">
+                <h3>🔍 Effect Size Reality</h3>
+                <p>Statistical significance doesn't mean practical importance.</p>
+                
+                <div class="warning-example">
+                    <strong>Misleading:</strong> "Statistically significant weight loss!" (actual: 0.5 pounds)
+                </div>
+                
+                <div class="good-example">
+                    <strong>Meaningful:</strong> Reports both statistical significance AND practical importance
+                </div>
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">📊</div>
+                <h3>Statistical Literacy</h3>
+                <p>Learn what p-values, confidence intervals, and effect sizes actually mean</p>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon">🚨</div>
+                <h3>Bias Detection</h3>
+                <p>Identify common pitfalls like p-hacking, small samples, and selective reporting</p>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon">💡</div>
+                <h3>Plain English</h3>
+                <p>Get clear explanations without academic jargon or statistical complexity</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function analyzeStudy() {
+            const input = document.getElementById('studyInput').value;
+            const output = document.getElementById('sampleOutput');
+            
+            if (!input.trim()) {
+                alert('Please paste a research study to analyze!');
+                return;
+            }
+
+            const btn = document.querySelector('.analyze-btn');
+            btn.textContent = 'Analyzing... 🔄';
+            btn.disabled = true;
+            
+            try {
+                const response = await fetch('http://localhost:8000/analyze', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        studyText: input
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const analysis = await response.json();
+                displayResults(analysis);
+                
+            } catch (error) {
+                console.error('Analysis failed:', error);
+                showError('Analysis failed. Please try again or check your connection.');
+            } finally {
+                btn.textContent = 'Analyze Study 🔍';
+                btn.disabled = false;
+            }
+        }
+
+        function displayResults(analysis) {
+            const output = document.getElementById('sampleOutput');
+            
+            // Build the results HTML with real data
+            output.innerHTML = `
+                <h3 style="margin-bottom: 1rem; color: #2d3748;">Analysis Results</h3>
+                
+                <div class="metric">
+                    <span class="metric-label">Study Quality Score</span>
+                    <span class="metric-value ${getConfidenceClass(analysis.qualityScore)}">${analysis.qualityScore}/10 - ${getQualityLabel(analysis.qualityScore)}</span>
+                </div>
+                
+                <div class="metric">
+                    <span class="metric-label">Sample Size Assessment</span>
+                    <span class="metric-value ${getConfidenceClass(analysis.sampleSizeScore)}">${analysis.sampleSize}</span>
+                </div>
+                
+                <div class="metric">
+                    <span class="metric-label">P-Value Interpretation</span>
+                    <span class="metric-value ${getConfidenceClass(analysis.pValueScore)}">${analysis.pValueInterpretation}</span>
+                </div>
+                
+                <div class="metric">
+                    <span class="metric-label">Effect Size</span>
+                    <span class="metric-value ${getConfidenceClass(analysis.effectSizeScore)}">${analysis.effectSize}</span>
+                </div>
+                
+                <div class="metric">
+                    <span class="metric-label">Study Design</span>
+                    <span class="metric-value ${getConfidenceClass(analysis.designScore)}">${analysis.studyDesign}</span>
+                </div>
+
+                ${analysis.warnings && analysis.warnings.length > 0 ? `
+                <div style="margin-top: 1.5rem; padding: 1rem; background: #fff5f5; border-radius: 8px; border-left: 4px solid #e53e3e;">
+                    <strong style="color: #e53e3e;">⚠️ Potential Issues:</strong>
+                    <ul style="margin-top: 0.5rem; margin-left: 1rem; color: #e53e3e;">
+                        ${analysis.warnings.map(warning => `<li style="margin-bottom: 0.25rem;">${warning}</li>`).join('')}
+                    </ul>
+                </div>
+                ` : ''}
+                
+                <div style="margin-top: 1.5rem; padding: 1rem; background: #e7f3ff; border-radius: 8px; border-left: 4px solid #0066cc;">
+                    <strong style="color: #0066cc;">🎯 Key Takeaway:</strong> ${analysis.summary}
+                </div>
+
+                ${analysis.recommendations && analysis.recommendations.length > 0 ? `
+                <div style="margin-top: 1rem; padding: 1rem; background: #f0fff4; border-radius: 8px; border-left: 4px solid #38a169;">
+                    <strong style="color: #38a169;">💡 What to Look For Next:</strong>
+                    <ul style="margin-top: 0.5rem; margin-left: 1rem; color: #38a169;">
+                        ${analysis.recommendations.map(rec => `<li style="margin-bottom: 0.25rem;">${rec}</li>`).join('')}
+                    </ul>
+                </div>
+                ` : ''}
+            `;
+            
+            output.classList.add('show');
+            output.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function showError(message) {
+            const output = document.getElementById('sampleOutput');
+            output.innerHTML = `
+                <div style="padding: 2rem; text-align: center; color: #e53e3e;">
+                    <h3>⚠️ Analysis Error</h3>
+                    <p style="margin-top: 1rem;">${message}</p>
+                    <p style="margin-top: 1rem; font-size: 0.9rem; color: #666;">
+                        Make sure the Python server is running and your API key is configured.
+                    </p>
+                </div>
+            `;
+            output.classList.add('show');
+        }
+
+        function getConfidenceClass(score) {
+            if (score >= 8) return 'confidence-high';
+            if (score >= 6) return 'confidence-medium';
+            return 'confidence-low';
+        }
+
+        function getQualityLabel(score) {
+            if (score >= 8) return 'Excellent';
+            if (score >= 7) return 'Good';
+            if (score >= 5) return 'Fair';
+            return 'Poor';
+        }
+
+        // Auto-resize textarea
+        document.getElementById('studyInput').addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = this.scrollHeight + 'px';
+        });
+
+        // Add some interactivity to education cards
+        document.querySelectorAll('.edu-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.borderLeftColor = '#764ba2';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.borderLeftColor = '#667eea';
+            });
+        });
+    </script>
+</body>
+</html>
